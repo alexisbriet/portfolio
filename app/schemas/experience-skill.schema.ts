@@ -1,3 +1,4 @@
+import { FieldConfig } from "@/components/form-types";
 import z from "zod";
 
 export const createExperienceSkillSchema = z.object({
@@ -7,6 +8,22 @@ export const createExperienceSkillSchema = z.object({
 
 export type CreateExperienceSkillValues =
     z.infer<typeof createExperienceSkillSchema>;
+
+export const createExperienceSkillFormFields:
+    FieldConfig<CreateExperienceSkillValues>[] = [
+        {
+            name: "name",
+            label: "Nom",
+            placeholder: "Contenu",
+            required: true
+        },
+        {
+            name: "experienceId",
+            label: "Expérience",
+            placeholder: "",
+            required: true
+        },
+    ]
 
 export const updateExperienceSkillSchema =
     createExperienceSkillSchema.partial();

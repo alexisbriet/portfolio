@@ -1,3 +1,4 @@
+import { FieldConfig } from "@/components/form-types";
 import z from "zod";
 
 
@@ -15,7 +16,21 @@ export const createProjectTechnologySchema =
 export type CreateProjectTechnologyValues =
     z.infer<typeof createProjectTechnologySchema>;
 
-
+export const createProjectTechnologyFormFields:
+    FieldConfig<CreateProjectTechnologyValues>[] = [
+        {
+            name: "name",
+            label: "Nom",
+            placeholder: "Contenu",
+            required: true
+        },
+        {
+            name: "projectId",
+            label: "Projet",
+            placeholder: "",
+            required: true
+        },
+    ]
 
 export const updateProjectTechnologySchema =
     createProjectTechnologySchema.partial();

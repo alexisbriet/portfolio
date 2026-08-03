@@ -1,3 +1,4 @@
+import { FieldConfig } from "@/components/form-types";
 import z from "zod";
 
 export const createDeveloperStatSchema = z.object({
@@ -8,6 +9,28 @@ export const createDeveloperStatSchema = z.object({
 
 export type CreateDeveloperStatValues =
     z.infer<typeof createDeveloperStatSchema>;
+
+export const createDeveloperStatFormFields:
+    FieldConfig<CreateDeveloperStatValues>[] = [
+        {
+            name: "label",
+            label: "Nom",
+            placeholder: "",
+            required: true
+        },
+        {
+            name: "value",
+            label: "Valeur",
+            placeholder: "",
+            required: true
+        },
+        {
+            name: "developerId",
+            label: "Developpeur",
+            placeholder: "",
+            required: true
+        },
+    ]
 
 export const updateDeveloperStatSchema =
     createDeveloperStatSchema.partial();

@@ -1,3 +1,4 @@
+import { FieldConfig } from "@/components/form-types";
 import z from "zod";
 
 export const createSkillCategorySchema = z.object({
@@ -12,6 +13,27 @@ export const createSkillCategorySchema = z.object({
 export type CreateSkillCategoryValues =
     z.infer<typeof createSkillCategorySchema>;
 
+export const createSkillCategoryFormFields:
+    FieldConfig<CreateSkillCategoryValues>[] = [
+        {
+            name: "name",
+            label: "Nom",
+            placeholder: "Contenu",
+            required: true
+        },
+        {
+            name: "icon",
+            label: "Icon",
+            placeholder: "",
+            required: true
+        },
+        {
+            name: "developerId",
+            label: "Developpeur",
+            placeholder: "",
+            required: true
+        },
+    ]
 
 export const updateSkillCategorySchema =
     createSkillCategorySchema.partial();

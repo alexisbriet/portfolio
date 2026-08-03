@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Plus, Edit2, X } from 'lucide-react';
-import type { AdminSchema, FieldConfig } from './admin-schema';
+import type { AdminSchema, FieldConfig, ModelSchema } from './admin-schema';
+import type { FieldConfig as FormFieldConfig } from '@/components/form-types';
 
 type FormModalProps = {
   isOpen: boolean;
   mode: 'create' | 'edit';
   activeModel: string;
-  activeSchema: AdminSchema[string];
+  activeSchema: ModelSchema;
+  formFields?: FormFieldConfig<Record<string, any>>[];
   data: Record<string, any> | null;
   db: Record<string, any[]>;
   onClose: () => void;
@@ -18,12 +20,22 @@ export function FormModal({
   mode,
   activeModel,
   activeSchema,
+  formFields,
   data,
   db,
   onClose,
   onSave,
 }: FormModalProps) {
   const [formData, setFormData] = useState<Record<string, any>>(data || {});
+
+  const resolvedFields = (formFields && formFields.length > 0
+    ? formFields
+    : activeSchema.fields.map((field: FieldConfig) => ({
+        name: field.name,
+        label: field.name,
+        required: !field.optional,
+      }))
+  ) as FormFieldConfig<Record<string, any>>[];
 
   useEffect(() => {
     setFormData(data || {});
@@ -34,7 +46,7 @@ export function FormModal({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>, field: FieldConfig) => {
     let value: any = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
     if (field.type === 'Int' && value !== '') value = parseInt(value, 10);
-    setFormData({ ...formData, [field.name]: value });
+    setFormData((prev) => ({ ...prev, [field.name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,13 +67,20 @@ export function FormModal({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
-          {activeSchema.fields.map((field) => {
+        <form id="form-modal" onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
+          {resolvedFields.map((fieldConfig) => {
+            const schemaField = activeSchema.fields.find((field: FieldConfig) => field.name === fieldConfig.name);
+            const field = (schemaField ?? { name: fieldConfig.name, type: 'String' as const, optional: !fieldConfig.required }) as FieldConfig & {
+              type: 'String' | 'Int' | 'Boolean' | 'Text';
+              isId?: boolean;
+              relationTo?: string;
+            };
+
             if (field.isId) {
               if (mode === 'create') return null;
               return (
                 <div key={field.name}>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1">{field.name} (ID)</label>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">{fieldConfig.label ?? field.name} (ID)</label>
                   <input type="text" value={formData[field.name] ?? ''} disabled className="w-full p-2.5 bg-slate-100 border border-slate-200 rounded-lg text-slate-500 cursor-not-allowed" />
                 </div>
               );
@@ -70,7 +89,7 @@ export function FormModal({
             return (
               <div key={field.name}>
                 <label className="block text-sm font-semibold text-slate-700 mb-1">
-                  {field.name} {field.optional ? <span className="text-slate-400 font-normal">(Optionnel)</span> : <span className="text-red-500">*</span>}
+                  {fieldConfig.label ?? field.name} {field.optional ? <span className="text-slate-400 font-normal">(Optionnel)</span> : <span className="text-red-500">*</span>}
                 </label>
 
                 {field.relationTo ? (
@@ -83,7 +102,7 @@ export function FormModal({
                     <option value="">Sélectionner {field.relationTo}...</option>
                     {(db[field.relationTo] || []).map((rel) => (
                       <option key={rel.id} value={rel.id}>
-                        {rel.id} - {rel.name || rel.title || rel.email || 'Item'}
+                        {rel.id} - {rel.name || rel.title || rel.email || rel.company || 'Item'}
                       </option>
                     ))}
                   </select>
@@ -103,6 +122,7 @@ export function FormModal({
                     value={formData[field.name] ?? ''}
                     onChange={(e) => handleChange(e, field)}
                     rows={4}
+                    placeholder={fieldConfig.placeholder}
                     className="w-full p-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all resize-y"
                   />
                 ) : (
@@ -111,6 +131,7 @@ export function FormModal({
                     required={!field.optional}
                     value={formData[field.name] ?? ''}
                     onChange={(e) => handleChange(e, field)}
+                    placeholder={fieldConfig.placeholder}
                     className="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
                   />
                 )}
@@ -123,7 +144,7 @@ export function FormModal({
           <button type="button" onClick={onClose} className="px-5 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
             Annuler
           </button>
-          <button type="submit" onClick={handleSubmit} className="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors">
+          <button type="submit" form="form-modal" className="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors">
             Enregistrer
           </button>
         </div>

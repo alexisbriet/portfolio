@@ -1,15 +1,36 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { SCHEMA, INITIAL_DB, AdminModel, generateCuid, generateIntId } from './admin-schema';
+import { SCHEMA, INITIAL_DB, AdminModel } from './admin-schema';
 import { AdminSidebar } from './AdminSidebar';
 import { AdminHeader } from './AdminHeader';
 import { AdminTable } from './AdminTable';
 import { FormModal } from './FormModal';
 import { DeleteModal } from './DeleteModal';
 import { useRouter } from 'next/navigation';
+import { createDeveloperFormFields } from '@/app/schemas/developer.schema';
+import { createAchievementFormFields, createCertificationFormFields, createDeveloperStatFormFields, createEducationFormFields, createExperienceFormFields, createExperienceSkillFormFields, createPostFormFields, createProjectFormFields, createProjectTechnologyFormFields, createSkillCategoryFormFields, createSkillFormFields } from '@/app/schemas';
+import { createTestimonialFormFields } from '@/app/schemas/testimonial.schema';
+import { createUserFormFields } from '@/app/schemas/user.schema';
 
 type AdminData = Record<AdminModel, any[]>;
+
+const FORM_FIELDS: Partial<Record<AdminModel, any>> = {
+    Achievement: createAchievementFormFields,
+    Certification: createCertificationFormFields,
+    DeveloperStat: createDeveloperStatFormFields,
+    Developer: createDeveloperFormFields,
+    Education: createEducationFormFields,
+    ExperienceSkill: createExperienceSkillFormFields,
+    Experience: createExperienceFormFields,
+    Post: createPostFormFields,
+    ProjectTechnology: createProjectTechnologyFormFields,
+    Project: createProjectFormFields,
+    SkillCategory: createSkillCategoryFormFields,
+    Skill: createSkillFormFields,
+    Testimonial: createTestimonialFormFields,
+    User: createUserFormFields
+};
 
 export default function AdminPageContent({
     initialActiveModel,
@@ -17,7 +38,7 @@ export default function AdminPageContent({
     createAction,
     updateAction,
     deleteAction,
-} : {
+}: {
     initialActiveModel: AdminModel;
     initialDb: Partial<AdminData>;
     createAction: (values: unknown) => Promise<any>;
@@ -44,6 +65,7 @@ export default function AdminPageContent({
 
     const activeSchema = SCHEMA[activeModel];
     const tableData = db[activeModel] || [];
+    const activeFormFields = FORM_FIELDS[activeModel];
 
     const filteredData = tableData.filter(item =>
         Object.values(item).some(value => String(value).toLowerCase().includes(searchTerm.toLowerCase()))
@@ -151,6 +173,7 @@ export default function AdminPageContent({
                 mode={modalConfig.mode}
                 activeModel={activeModel}
                 activeSchema={activeSchema}
+                formFields={activeFormFields}
                 data={modalConfig.data}
                 db={db}
                 onClose={() => setModalConfig({ isOpen: false, mode: 'create', data: null })}
