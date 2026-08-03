@@ -64,13 +64,22 @@ export function ProjectsSection({ developerData, darkMode, projectCategory, onCa
               </div>
 
               <div className="pt-2 flex items-center gap-4">
-                <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-cyan-400 transition-colors">
-                  Code Source
-                </a>
-                <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:underline">
-                  <ExternalLink className="w-4 h-4" />
-                  Démo Live
-                </a>
+                {
+                  project.github &&
+                  (
+                    <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-cyan-400 transition-colors">
+                      Code Source
+                    </a>
+                  )
+                }
+                {project.demo &&
+                  (
+                    <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:underline">
+                      <ExternalLink className="w-4 h-4" />
+                      Démo Live
+                    </a>
+                  )
+                }
               </div>
             </div>
           </div>
