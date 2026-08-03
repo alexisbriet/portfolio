@@ -31,6 +31,10 @@ export const createProjectSchema = z.object({
     featured: z
         .boolean()
         .default(false),
+
+    developerId: z
+        .string()
+        .min(2),
 });
 
 
@@ -48,6 +52,7 @@ export const createProjectDefaultValues:
     github: "",
     demo: "",
     featured: false,
+    developerId: ""
 };
 
 
@@ -55,45 +60,52 @@ export const createProjectDefaultValues:
 export const createProjectFormFields:
     FieldConfig<CreateProjectValues>[] = [
 
-    {
-        name: "title",
-        label: "Titre",
-        placeholder: "Mon projet SaaS",
-        required: true,
-    },
+        {
+            name: "title",
+            label: "Titre",
+            placeholder: "Mon projet SaaS",
+            required: true,
+        },
 
-    {
-        name: "category",
-        label: "Catégorie",
-        placeholder: "SaaS",
-        required: true,
-    },
+        {
+            name: "category",
+            label: "Catégorie",
+            placeholder: "SaaS",
+            required: true,
+        },
 
-    {
-        name: "image",
-        label: "Image",
-        placeholder: "https://image.com",
-    },
+        {
+            name: "image",
+            label: "Image",
+            placeholder: "https://image.com",
+        },
 
-    {
-        name: "description",
-        label: "Description",
-        placeholder: "Description du projet",
-        required: true,
-    },
+        {
+            name: "description",
+            label: "Description",
+            placeholder: "Description du projet",
+            required: true,
+        },
 
-    {
-        name: "github",
-        label: "Github",
-        placeholder: "https://github.com",
-    },
+        {
+            name: "github",
+            label: "Github",
+            placeholder: "https://github.com",
+        },
 
-    {
-        name: "demo",
-        label: "Démo",
-        placeholder: "https://demo.com",
-    },
-];
+        {
+            name: "demo",
+            label: "Démo",
+            placeholder: "https://demo.com",
+        },
+
+        {
+            name: "developerId",
+            label: "Developpeur",
+            placeholder: "",
+            required: true,
+        },
+    ];
 
 
 export const updateProjectSchema =

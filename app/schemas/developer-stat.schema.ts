@@ -3,6 +3,7 @@ import z from "zod";
 export const createDeveloperStatSchema = z.object({
     label: z.string().min(2),
     value: z.string().min(1),
+    developerId: z.string().min(1),
 });
 
 export type CreateDeveloperStatValues =

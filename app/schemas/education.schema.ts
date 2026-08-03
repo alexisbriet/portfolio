@@ -19,6 +19,9 @@ export const createEducationSchema =
         details: z
             .string()
             .min(5),
+        developerId: z
+            .string()
+            .min(5),
     });
 
 

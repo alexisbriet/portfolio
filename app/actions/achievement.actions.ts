@@ -1,11 +1,11 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createAchievementSchema } from "@/app/schemas/achievement.schema";
+import { createAchievementSchema, CreateAchievementValues } from "@/app/schemas/achievement.schema";
 import { revalidatePath } from "next/cache";
 
 
-export async function getAchievements(){
+export async function getAchievements() {
 
     return prisma.achievement.findMany();
 
@@ -13,11 +13,11 @@ export async function getAchievements(){
 
 
 export async function getAchievementById(
-    id:string
-){
+    id: string
+) {
 
     return prisma.achievement.findUnique({
-        where:{
+        where: {
             id
         }
     });
@@ -27,8 +27,8 @@ export async function getAchievementById(
 
 
 export async function createAchievement(
-    values:unknown
-){
+    values: CreateAchievementValues
+) {
 
     const data =
         createAchievementSchema.parse(values);
@@ -43,18 +43,18 @@ export async function createAchievement(
 
 
 export async function updateAchievement(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateAchievementValues
+) {
 
     const data =
         createAchievementSchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     return prisma.achievement.update({
-        where:{
+        where: {
             id
         },
         data
@@ -65,11 +65,11 @@ export async function updateAchievement(
 
 
 export async function deleteAchievement(
-    id:string
-){
+    id: string
+) {
 
     await prisma.achievement.delete({
-        where:{
+        where: {
             id
         }
     });

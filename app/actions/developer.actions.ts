@@ -2,7 +2,8 @@
 
 import { prisma } from "@/lib/prisma";
 import {
-    createDeveloperSchema
+    createDeveloperSchema,
+    CreateDeveloperValues
 } from "@/app/schemas/developer.schema";
 
 import { revalidatePath } from "next/cache";
@@ -29,7 +30,7 @@ export async function getDeveloperById(id: string) {
 
 
 export async function createDeveloper(
-    values: unknown
+    values: CreateDeveloperValues
 ) {
 
     const data =
@@ -51,7 +52,7 @@ export async function createDeveloper(
 
 export async function updateDeveloper(
     id: string,
-    values: unknown
+    values: CreateDeveloperValues
 ) {
 
     const data =

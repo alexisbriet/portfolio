@@ -1,11 +1,11 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createProjectTechnologySchema } from "@/app/schemas/project-technology.schema";
+import { createProjectTechnologySchema, CreateProjectTechnologyValues } from "@/app/schemas/project-technology.schema";
 import { revalidatePath } from "next/cache";
 
 
-export async function getProjectTechnologies(){
+export async function getProjectTechnologies() {
 
     return prisma.projectTechnology.findMany();
 
@@ -14,8 +14,8 @@ export async function getProjectTechnologies(){
 
 
 export async function createProjectTechnology(
-    values:unknown
-){
+    values: CreateProjectTechnologyValues
+) {
 
     const data =
         createProjectTechnologySchema.parse(values);
@@ -36,19 +36,19 @@ export async function createProjectTechnology(
 
 
 export async function updateProjectTechnology(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateProjectTechnologyValues
+) {
 
     const data =
         createProjectTechnologySchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     const technology =
         await prisma.projectTechnology.update({
-            where:{
+            where: {
                 id
             },
             data
@@ -64,11 +64,11 @@ export async function updateProjectTechnology(
 
 
 export async function deleteProjectTechnology(
-    id:string
-){
+    id: string
+) {
 
     await prisma.projectTechnology.delete({
-        where:{
+        where: {
             id
         }
     });

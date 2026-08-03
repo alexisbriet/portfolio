@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createEducationSchema } from "@/app/schemas/education.schema";
+import { createEducationSchema, CreateEducationValues } from "@/app/schemas/education.schema";
 import { revalidatePath } from "next/cache";
 
 
@@ -30,7 +30,7 @@ export async function getEducationById(
 
 
 export async function createEducation(
-    values: unknown
+    values: CreateEducationValues
 ) {
 
     const data =
@@ -52,7 +52,7 @@ export async function createEducation(
 
 export async function updateEducation(
     id: string,
-    values: unknown
+    values: CreateEducationValues
 ) {
 
     const data =

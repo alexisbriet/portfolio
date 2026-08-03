@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createExperienceSchema } from "@/app/schemas/experience.schema";
+import { createExperienceSchema, CreateExperienceValues } from "@/app/schemas/experience.schema";
 import { revalidatePath } from "next/cache";
 
 
@@ -37,12 +37,11 @@ export async function getExperienceById(
 
 
 export async function createExperience(
-    values: unknown
+    values: CreateExperienceValues
 ) {
 
     const data =
         createExperienceSchema.parse(values);
-
 
     return prisma.experience.create({
         data
@@ -54,7 +53,7 @@ export async function createExperience(
 
 export async function updateExperience(
     id: string,
-    values: unknown
+    values: CreateExperienceValues
 ) {
 
     const data =

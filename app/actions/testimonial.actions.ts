@@ -1,11 +1,11 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createTestimonialSchema } from "@/app/schemas/testimonial.schema";
+import { createTestimonialSchema, CreateTestimonialValues } from "@/app/schemas/testimonial.schema";
 import { revalidatePath } from "next/cache";
 
 
-export async function getTestimonials(){
+export async function getTestimonials() {
 
     return prisma.testimonial.findMany();
 
@@ -14,11 +14,11 @@ export async function getTestimonials(){
 
 
 export async function getTestimonialById(
-    id:string
-){
+    id: string
+) {
 
     return prisma.testimonial.findUnique({
-        where:{
+        where: {
             id
         }
     });
@@ -28,8 +28,8 @@ export async function getTestimonialById(
 
 
 export async function createTestimonial(
-    values:unknown
-){
+    values: CreateTestimonialValues
+) {
 
     const data =
         createTestimonialSchema.parse(values);
@@ -50,19 +50,19 @@ export async function createTestimonial(
 
 
 export async function updateTestimonial(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateTestimonialValues
+) {
 
     const data =
         createTestimonialSchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     const testimonial =
         await prisma.testimonial.update({
-            where:{
+            where: {
                 id
             },
             data
@@ -78,11 +78,11 @@ export async function updateTestimonial(
 
 
 export async function deleteTestimonial(
-    id:string
-){
+    id: string
+) {
 
     await prisma.testimonial.delete({
-        where:{
+        where: {
             id
         }
     });

@@ -1,11 +1,11 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createExperienceSkillSchema } from "@/app/schemas/experience-skill.schema";
+import { createExperienceSkillSchema, CreateExperienceSkillValues } from "@/app/schemas/experience-skill.schema";
 import { revalidatePath } from "next/cache";
 
 
-export async function getExperienceSkills(){
+export async function getExperienceSkills() {
 
     return prisma.experienceSkill.findMany();
 
@@ -14,8 +14,8 @@ export async function getExperienceSkills(){
 
 
 export async function createExperienceSkill(
-    values:unknown
-){
+    values: CreateExperienceSkillValues
+) {
 
     const data =
         createExperienceSkillSchema.parse(values);
@@ -30,18 +30,18 @@ export async function createExperienceSkill(
 
 
 export async function updateExperienceSkill(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateExperienceSkillValues
+) {
 
     const data =
         createExperienceSkillSchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     return prisma.experienceSkill.update({
-        where:{
+        where: {
             id
         },
         data
@@ -52,11 +52,11 @@ export async function updateExperienceSkill(
 
 
 export async function deleteExperienceSkill(
-    id:string
-){
+    id: string
+) {
 
     await prisma.experienceSkill.delete({
-        where:{
+        where: {
             id
         }
     });

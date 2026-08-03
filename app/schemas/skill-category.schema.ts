@@ -4,6 +4,8 @@ export const createSkillCategorySchema = z.object({
     name: z.string().min(2),
 
     icon: z.string().optional(),
+
+    developerId: z.string().min(2),
 });
 
 

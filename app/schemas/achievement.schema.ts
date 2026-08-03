@@ -2,6 +2,7 @@ import z from "zod";
 
 export const createAchievementSchema = z.object({
     content: z.string().min(5),
+    experienceId: z.string().min(5),
 });
 
 export type CreateAchievementValues =

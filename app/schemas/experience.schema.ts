@@ -26,6 +26,9 @@ export const createExperienceSchema = z.object({
     description: z
         .string()
         .min(10, "La description est trop courte"),
+    developerId: z
+        .string()
+        .min(10, "La description est trop courte"),
 });
 
 
@@ -41,47 +44,54 @@ export const createExperienceDefaultValues:
     location: "",
     type: "",
     description: "",
+    developerId: ""
 };
 
 
 export const createExperienceFormFields:
     FieldConfig<CreateExperienceValues>[] = [
-    {
-        name: "role",
-        label: "Poste",
-        placeholder: "Lead Développeur Full Stack",
-        required: true,
-    },
-    {
-        name: "company",
-        label: "Entreprise",
-        placeholder: "TechScale Solutions",
-        required: true,
-    },
-    {
-        name: "period",
-        label: "Période",
-        placeholder: "2022 - Présent",
-        required: true,
-    },
-    {
-        name: "location",
-        label: "Localisation",
-        placeholder: "Paris",
-    },
-    {
-        name: "type",
-        label: "Contrat",
-        placeholder: "CDI",
-        required: true,
-    },
-    {
-        name: "description",
-        label: "Description",
-        placeholder: "Description de l'expérience",
-        required: true,
-    },
-];
+        {
+            name: "role",
+            label: "Poste",
+            placeholder: "Lead Développeur Full Stack",
+            required: true,
+        },
+        {
+            name: "company",
+            label: "Entreprise",
+            placeholder: "TechScale Solutions",
+            required: true,
+        },
+        {
+            name: "period",
+            label: "Période",
+            placeholder: "2022 - Présent",
+            required: true,
+        },
+        {
+            name: "location",
+            label: "Localisation",
+            placeholder: "Paris",
+        },
+        {
+            name: "type",
+            label: "Contrat",
+            placeholder: "CDI",
+            required: true,
+        },
+        {
+            name: "description",
+            label: "Description",
+            placeholder: "Description de l'expérience",
+            required: true,
+        },
+        {
+            name: "developerId",
+            label: "Id developer",
+            placeholder: "",
+            required: true, 
+        }
+    ];
 
 
 export const updateExperienceSchema =

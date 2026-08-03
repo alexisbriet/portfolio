@@ -15,6 +15,9 @@ export const createCertificationSchema =
         date: z
             .string()
             .min(4),
+        developerId: z
+            .string()
+            .min(2),
     });
 
 

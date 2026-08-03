@@ -1,15 +1,15 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createSkillCategorySchema } from "@/app/schemas/skill-category.schema";
+import { createSkillCategorySchema, CreateSkillCategoryValues } from "@/app/schemas/skill-category.schema";
 import { revalidatePath } from "next/cache";
 
 
 export async function getSkillCategories() {
 
     return prisma.skillCategory.findMany({
-        include:{
-            skills:true
+        include: {
+            skills: true
         }
     });
 
@@ -17,15 +17,15 @@ export async function getSkillCategories() {
 
 
 export async function getSkillCategoryById(
-    id:string
-){
+    id: string
+) {
 
     return prisma.skillCategory.findUnique({
-        where:{
+        where: {
             id
         },
-        include:{
-            skills:true
+        include: {
+            skills: true
         }
     });
 
@@ -34,8 +34,8 @@ export async function getSkillCategoryById(
 
 
 export async function createSkillCategory(
-    values:unknown
-){
+    values: CreateSkillCategoryValues
+) {
 
     const data =
         createSkillCategorySchema.parse(values);
@@ -56,18 +56,18 @@ export async function createSkillCategory(
 
 
 export async function updateSkillCategory(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateSkillCategoryValues
+) {
 
     const data =
         createSkillCategorySchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     return prisma.skillCategory.update({
-        where:{
+        where: {
             id
         },
         data
@@ -78,11 +78,11 @@ export async function updateSkillCategory(
 
 
 export async function deleteSkillCategory(
-    id:string
-){
+    id: string
+) {
 
     await prisma.skillCategory.delete({
-        where:{
+        where: {
             id
         }
     });

@@ -6,6 +6,9 @@ export const createProjectTechnologySchema =
         name: z
             .string()
             .min(2),
+        projectId: z
+            .string()
+            .min(2),
     });
 
 

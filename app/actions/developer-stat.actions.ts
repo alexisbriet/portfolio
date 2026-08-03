@@ -1,11 +1,11 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createDeveloperStatSchema } from "@/app/schemas/developer-stat.schema";
+import { createDeveloperStatSchema, CreateDeveloperStatValues } from "@/app/schemas/developer-stat.schema";
 import { revalidatePath } from "next/cache";
 
 
-export async function getDeveloperStats(){
+export async function getDeveloperStats() {
 
     return prisma.developerStat.findMany();
 
@@ -14,11 +14,11 @@ export async function getDeveloperStats(){
 
 
 export async function getDeveloperStatById(
-    id:string
-){
+    id: string
+) {
 
     return prisma.developerStat.findUnique({
-        where:{
+        where: {
             id
         }
     });
@@ -28,8 +28,8 @@ export async function getDeveloperStatById(
 
 
 export async function createDeveloperStat(
-    values:unknown
-){
+    values: CreateDeveloperStatValues
+) {
 
     const data =
         createDeveloperStatSchema.parse(values);
@@ -50,18 +50,18 @@ export async function createDeveloperStat(
 
 
 export async function updateDeveloperStat(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateDeveloperStatValues
+) {
 
     const data =
         createDeveloperStatSchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     return prisma.developerStat.update({
-        where:{
+        where: {
             id
         },
         data
@@ -72,11 +72,11 @@ export async function updateDeveloperStat(
 
 
 export async function deleteDeveloperStat(
-    id:string
-){
+    id: string
+) {
 
     await prisma.developerStat.delete({
-        where:{
+        where: {
             id
         }
     });

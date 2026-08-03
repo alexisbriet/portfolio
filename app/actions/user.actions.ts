@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createUserSchema } from "@/app/schemas/user.schema";
+import { createUserSchema, CreateUserValues } from "@/app/schemas/user.schema";
 import { revalidatePath } from "next/cache";
 
 export async function getUsers() {
@@ -20,7 +20,9 @@ export async function getUserById(id: string) {
   });
 }
 
-export async function createUser(values: unknown) {
+export async function createUser(
+  values: CreateUserValues
+) {
   const data = createUserSchema.parse(values);
 
   const user = await prisma.user.create({
@@ -32,7 +34,9 @@ export async function createUser(values: unknown) {
   return user;
 }
 
-export async function updateUser(id: string, values: unknown) {
+export async function updateUser(
+  id: string, values: CreateUserValues
+) {
   const data = createUserSchema.partial().parse(values);
 
   const user = await prisma.user.update({

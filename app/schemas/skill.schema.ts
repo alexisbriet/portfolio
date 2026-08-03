@@ -7,6 +7,8 @@ export const createSkillSchema = z.object({
         .number()
         .min(0)
         .max(100),
+
+    categoryId: z.string().min(2),
 });
 
 

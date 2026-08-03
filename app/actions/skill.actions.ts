@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createSkillSchema } from "@/app/schemas/skill.schema";
+import { createSkillSchema, CreateSkillValues } from "@/app/schemas/skill.schema";
 import { revalidatePath } from "next/cache";
 
 
@@ -23,7 +23,9 @@ export async function getSkillById(id: string) {
 }
 
 
-export async function createSkill(values: unknown) {
+export async function createSkill(
+    values: CreateSkillValues
+) {
 
     const data = createSkillSchema.parse(values);
 
@@ -39,7 +41,7 @@ export async function createSkill(values: unknown) {
 
 export async function updateSkill(
     id: string,
-    values: unknown
+    values: CreateSkillValues
 ) {
 
     const data = createSkillSchema

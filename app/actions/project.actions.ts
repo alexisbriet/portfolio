@@ -1,18 +1,18 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createProjectSchema } from "@/app/schemas/project.schema";
+import { createProjectSchema, CreateProjectValues } from "@/app/schemas/project.schema";
 import { revalidatePath } from "next/cache";
 
 
-export async function getProjects(){
+export async function getProjects() {
 
     return prisma.project.findMany({
-        include:{
-            technologies:true
+        include: {
+            technologies: true
         },
-        orderBy:{
-            title:"asc"
+        orderBy: {
+            title: "asc"
         }
     });
 
@@ -21,15 +21,15 @@ export async function getProjects(){
 
 
 export async function getProjectById(
-    id:string
-){
+    id: string
+) {
 
     return prisma.project.findUnique({
-        where:{
+        where: {
             id
         },
-        include:{
-            technologies:true
+        include: {
+            technologies: true
         }
     });
 
@@ -38,8 +38,8 @@ export async function getProjectById(
 
 
 export async function createProject(
-    values:unknown
-){
+    values: CreateProjectValues
+) {
 
     const data =
         createProjectSchema.parse(values);
@@ -59,18 +59,18 @@ export async function createProject(
 
 
 export async function updateProject(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateProjectValues
+) {
 
     const data =
         createProjectSchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     return prisma.project.update({
-        where:{
+        where: {
             id
         },
         data
@@ -81,11 +81,11 @@ export async function updateProject(
 
 
 export async function deleteProject(
-    id:string
-){
+    id: string
+) {
 
     await prisma.project.delete({
-        where:{
+        where: {
             id
         }
     });

@@ -1,15 +1,15 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createCertificationSchema } from "@/app/schemas/certification.schema";
+import { createCertificationSchema, CreateCertificationValues } from "@/app/schemas/certification.schema";
 import { revalidatePath } from "next/cache";
 
 
 export async function getCertifications() {
 
     return prisma.certification.findMany({
-        orderBy:{
-            date:"desc"
+        orderBy: {
+            date: "desc"
         }
     });
 
@@ -17,11 +17,11 @@ export async function getCertifications() {
 
 
 export async function getCertificationById(
-    id:string
-){
+    id: string
+) {
 
     return prisma.certification.findUnique({
-        where:{
+        where: {
             id
         }
     });
@@ -31,8 +31,8 @@ export async function getCertificationById(
 
 
 export async function createCertification(
-    values:unknown
-){
+    values: CreateCertificationValues
+) {
 
     const data =
         createCertificationSchema.parse(values);
@@ -53,19 +53,19 @@ export async function createCertification(
 
 
 export async function updateCertification(
-    id:string,
-    values:unknown
-){
+    id: string,
+    values: CreateCertificationValues
+) {
 
     const data =
         createCertificationSchema
-        .partial()
-        .parse(values);
+            .partial()
+            .parse(values);
 
 
     const certification =
         await prisma.certification.update({
-            where:{
+            where: {
                 id
             },
             data
@@ -81,11 +81,11 @@ export async function updateCertification(
 
 
 export async function deleteCertification(
-    id:string
-){
+    id: string
+) {
 
     await prisma.certification.delete({
-        where:{
+        where: {
             id
         }
     });

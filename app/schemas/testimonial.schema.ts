@@ -15,6 +15,10 @@ export const createTestimonialSchema =
         title: z
             .string()
             .min(3),
+
+        developerId: z
+            .string()
+            .min(3),
     });
 
 

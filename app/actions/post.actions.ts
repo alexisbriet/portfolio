@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createPostSchema } from "@/app/schemas/post.schema";
+import { createPostSchema, CreatePostValues } from "@/app/schemas/post.schema";
 import { revalidatePath } from "next/cache";
 
 export async function getPosts() {
@@ -20,7 +20,9 @@ export async function getPostById(id: string) {
   });
 }
 
-export async function createPost(values: unknown) {
+export async function createPost(
+  values: CreatePostValues
+) {
   const data = createPostSchema.parse(values);
 
   const post = await prisma.post.create({
@@ -32,7 +34,10 @@ export async function createPost(values: unknown) {
   return post;
 }
 
-export async function updatePost(id: string, values: unknown) {
+export async function updatePost(
+  id: string,
+  values: CreatePostValues
+) {
   const data = createPostSchema.partial().parse(values);
 
   const post = await prisma.post.update({
