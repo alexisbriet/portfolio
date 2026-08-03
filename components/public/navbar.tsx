@@ -1,6 +1,6 @@
 "use client";
 
-import { Code2, Moon, Printer, Sun } from "lucide-react";
+import { Code2, Download, Moon, Printer, Sun } from "lucide-react";
 import { useTheme } from "@/components/public/layout/theme-context";
 
 export default function Navbar() {
@@ -16,7 +16,7 @@ export default function Navbar() {
                             <Code2 className="w-5 h-5" />
                         </div>
                         <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
-                            LB.dev
+                            Alexis BRIET
                         </span>
                     </div>
 
@@ -44,13 +44,14 @@ export default function Navbar() {
                             {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                         </button>
 
-                        <button
-                            onClick={() => window.print()}
+                        <a
+                            href="https://cv.alexisbriet.fr"
+                            download
                             className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-700 hover:border-cyan-500 transition-all hover:text-cyan-400"
                         >
-                            <Printer className="w-3.5 h-3.5" />
-                            Imprimer
-                        </button>
+                            <Download className="w-3.5 h-3.5" />
+                            Télécharger mon CV
+                        </a>
                     </div>
                 </div>
             </div>

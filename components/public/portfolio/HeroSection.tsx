@@ -2,6 +2,7 @@ import { CheckCircle2, Copy, Download, Mail, MapPin } from 'lucide-react';
 
 import type { DeveloperData } from './types';
 import { redirect } from 'next/navigation';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 type HeroSectionProps = {
   developerData: DeveloperData;
@@ -75,8 +76,12 @@ export function HeroSection({ developerData, darkMode, copiedField, onCopy }: He
               </a>
 
               <div className="flex items-center gap-2 ml-2">
-                <a href={developerData.github} target="_blank" rel="noreferrer" className="p-3 rounded-xl border border-slate-700/60 hover:border-cyan-500 hover:text-cyan-400 transition-colors" />
-                <a href={developerData.linkedin} target="_blank" rel="noreferrer" className="p-3 rounded-xl border border-slate-700/60 hover:border-cyan-500 hover:text-cyan-400 transition-colors" />
+                <a href={developerData.github} target="_blank" rel="noreferrer" className="p-3 rounded-xl border border-slate-700/60 hover:border-cyan-500 hover:text-cyan-400 transition-colors">
+                  <FaGithub className="w-5 h-5" />
+                </a>
+                <a href={developerData.linkedin} target="_blank" rel="noreferrer" className="p-3 rounded-xl border border-slate-700/60 hover:border-cyan-500 hover:text-cyan-400 transition-colors">
+                  <FaLinkedin className="w-5 h-5" />
+                </a>
               </div>
             </div>
           </div>
