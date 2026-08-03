@@ -1,7 +1,7 @@
 import z from "zod";
 import type { FieldConfig } from "@/components/form-types";
 
-export const createUserSchema = z.object({
+export const createPostSchema = z.object({
     title: z
         .string()
         .min(3, "Le nom doit contenir au moins 3 caractères"),
@@ -15,17 +15,17 @@ export const createUserSchema = z.object({
 });
 
 
-export type CreateUserValues =
-    z.infer<typeof createUserSchema>;
+export type CreatePostValues =
+    z.infer<typeof createPostSchema>;
 
-export const createUserDefaultValues: CreateUserValues = {
+export const createPostDefaultValues: CreatePostValues = {
     title: "",
     content: "",
     published: false,
     authorId: 0,
 };
 
-export const createUserFormFields: FieldConfig<CreateUserValues>[] = [
+export const createPostFormFields: FieldConfig<CreatePostValues>[] = [
     {
         name: "title",
         label: "Titre",
@@ -40,13 +40,13 @@ export const createUserFormFields: FieldConfig<CreateUserValues>[] = [
     }
 ];
 
-export const updateUserSchema = z.object({
+export const updatePostSchema = z.object({
     name: z.string(),
     email: z.email()
 })
 
-export type UpdateUserFormValues =
-    z.input<typeof updateUserSchema>;
+export type UpdatePostFormValues =
+    z.input<typeof updatePostSchema>;
 
-export type UpdateUserValues =
-    z.output<typeof updateUserSchema>;
+export type UpdatePostValues =
+    z.output<typeof updatePostSchema>;

@@ -1,12 +1,12 @@
-import type { AdminSchema } from '../admin-schema';
+import type { AdminSchema } from './admin-schema';
 import { Database } from 'lucide-react';
 
 type AdminSidebarProps = {
   schema: AdminSchema;
-  db: Record<string, any[]>;
-  activeModel: string;
+  db: Record<keyof AdminSchema, any[]>;
+  activeModel: keyof AdminSchema;
   isOpen: boolean;
-  onSelectModel: (model: string) => void;
+  onSelectModel: (model: keyof AdminSchema) => void;
   onClose: () => void;
 };
 

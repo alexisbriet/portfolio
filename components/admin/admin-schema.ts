@@ -13,12 +13,10 @@ export type FieldConfig = {
 
 export type ModelSchema = {
   icon: LucideIcon;
-  fields: FieldConfig[];
+  fields: readonly FieldConfig[];
 };
 
-export type AdminSchema = Record<string, ModelSchema>;
-
-export const SCHEMA: AdminSchema = {
+export const SCHEMA = {
   User: {
     icon: require('lucide-react').Users,
     fields: [
@@ -162,14 +160,16 @@ export const SCHEMA: AdminSchema = {
       { name: 'developerId', type: 'String', relationTo: 'Developer' }
     ]
   }
-};
+} as const;
+
+export type AdminSchema = typeof SCHEMA;
+export type AdminModel = keyof AdminSchema;
+export type ModelSchema = AdminSchema[AdminModel];
 
 export const generateCuid = () => 'c' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
 
 export const generateIntId = (existingData: Array<{ id: number }>) =>
   existingData.length > 0 ? Math.max(...existingData.map(d => d.id)) + 1 : 1;
-
-export type AdminModel = keyof typeof SCHEMA;
 
 export const INITIAL_DB = {
   User: [{ id: 1, email: 'admin@example.com', name: 'Admin User' }],

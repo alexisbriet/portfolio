@@ -1,5 +1,5 @@
 import { Layers, Search, Edit2, Trash2 } from 'lucide-react';
-import type { FieldConfig, ModelSchema } from '../admin-schema';
+import type { FieldConfig, ModelSchema } from './admin-schema';
 
 type AdminTableProps = {
   activeModel: string;

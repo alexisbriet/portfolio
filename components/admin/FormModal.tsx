@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Plus, Edit2, X } from 'lucide-react';
-import type { AdminSchema, FieldConfig } from '../admin-schema';
+import type { AdminSchema, FieldConfig } from './admin-schema';
 
 type FormModalProps = {
   isOpen: boolean;
