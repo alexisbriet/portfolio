@@ -89,7 +89,7 @@ export function DeveloperDataProvider({ children }: { children: ReactNode }) {
           experiences: experiences
             .filter((experience) => experience.developerId === developer.id)
             .map((experience) => ({
-              id: Number(experience.id),
+              id: experience.id,
               role: experience.role,
               company: experience.company,
               period: experience.period,
@@ -109,7 +109,7 @@ export function DeveloperDataProvider({ children }: { children: ReactNode }) {
           projects: projects
             .filter((project) => project.developerId === developer.id)
             .map((project) => ({
-              id: Number(project.id),
+              id: project.id,
               title: project.title,
               category: project.category,
               image: project.image ?? "",

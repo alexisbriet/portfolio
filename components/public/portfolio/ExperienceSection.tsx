@@ -5,8 +5,8 @@ import type { DeveloperData } from './types';
 type ExperienceSectionProps = {
   developerData: DeveloperData;
   darkMode: boolean;
-  expandedExp: number | null;
-  onToggle: (id: number) => void;
+  expandedExp: string | null;
+  onToggle: (id: string) => void;
 };
 
 export function ExperienceSection({ developerData, darkMode, expandedExp, onToggle }: ExperienceSectionProps) {
@@ -26,6 +26,7 @@ export function ExperienceSection({ developerData, darkMode, expandedExp, onTogg
 
       <div className="space-y-4">
         {developerData.experiences.map((exp) => {
+          console.log(exp)
           const isExpanded = expandedExp === exp.id;
 
           return (

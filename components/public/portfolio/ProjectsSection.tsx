@@ -44,7 +44,7 @@ export function ProjectsSection({ developerData, darkMode, projectCategory, onCa
             className={`group rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-cyan-500/50' : 'bg-white border-slate-200 shadow-sm'}`}
           >
             <div className="relative h-48 overflow-hidden">
-              <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img src={project.image ? project.image : 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80'} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-transparent to-transparent opacity-80" />
               <span className="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-900/80 text-cyan-300 border border-cyan-500/30">
                 {project.category}

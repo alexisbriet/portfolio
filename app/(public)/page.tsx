@@ -15,7 +15,7 @@ import { useDeveloperData } from '@/components/public/layout/developer-data-cont
 
 export default function Home() {
   const [skillFilter, setSkillFilter] = useState('');
-  const [expandedExp, setExpandedExp] = useState<number | null>(1);
+  const [expandedExp, setExpandedExp] = useState<string | null>(null);
   const [projectCategory, setProjectCategory] = useState('Tous');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });

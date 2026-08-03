@@ -6,7 +6,7 @@ export type StatItem = {
 };
 
 export type ExperienceItem = {
-  id: number;
+  id: string;
   role: string;
   company: string;
   period: string;
@@ -29,7 +29,7 @@ export type SkillCategory = {
 };
 
 export type ProjectItem = {
-  id: number;
+  id: string;
   title: string;
   category: string;
   image: string;
