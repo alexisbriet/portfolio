@@ -1,6 +1,7 @@
 import { CheckCircle2, Copy, Download, Mail, MapPin } from 'lucide-react';
 
 import type { DeveloperData } from './types';
+import { redirect } from 'next/navigation';
 
 type HeroSectionProps = {
   developerData: DeveloperData;
@@ -10,6 +11,11 @@ type HeroSectionProps = {
 };
 
 export function HeroSection({ developerData, darkMode, copiedField, onCopy }: HeroSectionProps) {
+
+  function downloadCV() {
+    window.open("https://cv.alexisbriet.fr", "_blank", "noopener,noreferrer");
+  }
+
   return (
     <section id="about" className="relative pt-6">
       <div className={`p-8 rounded-3xl border relative overflow-hidden transition-all shadow-xl ${darkMode ? 'bg-linear-to-br from-slate-900 via-slate-900/90 to-slate-950 border-slate-800 shadow-cyan-950/10' : 'bg-white border-slate-200 shadow-slate-200/50'}`}>
@@ -60,7 +66,7 @@ export function HeroSection({ developerData, darkMode, copiedField, onCopy }: He
                 href="#"
                 onClick={(event) => {
                   event.preventDefault();
-                  alert('Téléchargement du fichier CV PDF lancé !');
+                  downloadCV();
                 }}
                 className={`px-5 py-3 rounded-xl border text-sm font-semibold transition-all flex items-center gap-2 ${darkMode ? 'border-slate-700 bg-slate-800/60 hover:bg-slate-800 hover:border-slate-600 text-slate-200' : 'border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800'}`}
               >
@@ -78,7 +84,7 @@ export function HeroSection({ developerData, darkMode, copiedField, onCopy }: He
           <div className="relative">
             <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden border-4 border-cyan-500/30 shadow-2xl relative group">
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+                src="https://media.licdn.com/dms/image/v2/D4D03AQFdiSmZASUD5g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714480524826?e=1787184000&v=beta&t=4pX2qHkwFjzXHvSXz4nm8d_4Wesg7TCYZvVijIi7dQo"
                 alt="Photo de profil"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
