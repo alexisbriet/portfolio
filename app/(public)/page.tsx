@@ -20,6 +20,7 @@ import { StatsSection } from '../../components/public/portfolio/StatsSection';
 import { TestimonialsSection } from '../../components/public/portfolio/TestimonialsSection';
 import type { DeveloperData } from '../../components/public/portfolio/types';
 import { Cpu, Database, Layers, Terminal } from 'lucide-react';
+import { useTheme } from '@/components/public/layout/theme-context';
 
 const emptyDeveloperData: DeveloperData = {
   name: '',
@@ -55,7 +56,7 @@ export default function Home() {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [darkMode] = useState(false);
+  const { darkMode } = useTheme();
   const [developerData, setDeveloperData] = useState<DeveloperData>(emptyDeveloperData);
 
   const copyToClipboard = (text: string, field: string) => {

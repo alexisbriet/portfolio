@@ -1,11 +1,10 @@
 "use client";
 
 import { Code2, Moon, Printer, Sun } from "lucide-react";
-import { useState } from "react";
+import { useTheme } from "@/components/public/layout/theme-context";
 
 export default function Navbar() {
-    const [darkMode, setDarkMode] = useState(true);
-    const toggleTheme = () => setDarkMode(!darkMode);
+    const { darkMode, toggleDarkMode } = useTheme();
 
     return (
         <nav className={`sticky top-0 z-50 backdrop-blur-md border-b transition-colors ${darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-white/80 border-slate-200 shadow-sm'
@@ -34,7 +33,7 @@ export default function Navbar() {
                     {/* Theme & Actions */}
                     <div className="flex items-center gap-3">
                         <button
-                            onClick={toggleTheme}
+                            onClick={toggleDarkMode}
                             aria-label="Changer de thème"
                             className={`p-2 rounded-lg border transition-all ${darkMode
                                 ? 'bg-slate-800 border-slate-700 text-yellow-400 hover:bg-slate-700'

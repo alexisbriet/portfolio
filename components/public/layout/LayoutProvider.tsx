@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Navbar from "../navbar";
 import Footer from "../footer";
 import { Cpu, Database, Layers, Terminal } from "lucide-react";
+import { ThemeProvider, useTheme } from "./theme-context";
 
 type Props = {
     children: React.ReactNode;
@@ -204,8 +204,8 @@ const DEVELOPER_DATA = {
     ]
 };
 
-export default function LayoutProvider({ children }: Props) {
-    const [darkMode, setDarkMode] = useState(true);
+function LayoutShell({ children }: Props) {
+    const { darkMode } = useTheme();
 
     return (
         <div className={`min-h-screen transition-colors duration-300 font-sans ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
@@ -216,5 +216,13 @@ export default function LayoutProvider({ children }: Props) {
                 DEVELOPER_DATA={DEVELOPER_DATA}
             />
         </div>
-    )
+    );
+}
+
+export default function LayoutProvider({ children }: Props) {
+    return (
+        <ThemeProvider>
+            <LayoutShell>{children}</LayoutShell>
+        </ThemeProvider>
+    );
 }
