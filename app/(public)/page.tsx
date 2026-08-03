@@ -13,6 +13,7 @@ import { TestimonialsSection } from '../../components/public/portfolio/Testimoni
 import { useTheme } from '@/components/public/layout/theme-context';
 import { useDeveloperData } from '@/components/public/layout/developer-data-context';
 import ArticlesSection from '@/components/public/portfolio/ArticlesSection';
+import { sendContactMessage } from '../actions/contact.actions';
 
 export default function Home() {
   const [skillFilter, setSkillFilter] = useState('');
@@ -39,14 +40,20 @@ export default function Home() {
     return developerData.posts;
   }, [developerData.posts]);
 
-  const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (contactForm.name && contactForm.email && contactForm.message) {
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setContactForm({ name: '', email: '', message: '' });
-      }, 4000);
+      const result = await sendContactMessage(contactForm);
+
+      if (result.success) {
+        setSubmitted(true);
+
+        setTimeout(() => {
+          setSubmitted(false);
+          setContactForm({ name: '', email: '', message: '' });
+        }, 4000);
+      }
     }
   };
 
