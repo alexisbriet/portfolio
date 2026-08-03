@@ -12,6 +12,7 @@ import { StatsSection } from '../../components/public/portfolio/StatsSection';
 import { TestimonialsSection } from '../../components/public/portfolio/TestimonialsSection';
 import { useTheme } from '@/components/public/layout/theme-context';
 import { useDeveloperData } from '@/components/public/layout/developer-data-context';
+import ArticlesSection from '@/components/public/portfolio/ArticlesSection';
 
 export default function Home() {
   const [skillFilter, setSkillFilter] = useState('');
@@ -34,6 +35,10 @@ export default function Home() {
     return developerData.projects.filter((project) => project.category === projectCategory);
   }, [developerData.projects, projectCategory]);
 
+  const filteredArticles = useMemo(() => {
+    return developerData.posts;
+  }, [developerData.posts]);
+
   const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (contactForm.name && contactForm.email && contactForm.message) {
@@ -52,6 +57,7 @@ export default function Home() {
       <ExperienceSection developerData={developerData} darkMode={darkMode} expandedExp={expandedExp} onToggle={(id) => setExpandedExp((current) => (current === id ? null : id))} />
       <SkillsSection developerData={developerData} darkMode={darkMode} skillFilter={skillFilter} onSkillFilterChange={setSkillFilter} />
       <ProjectsSection developerData={developerData} darkMode={darkMode} projectCategory={projectCategory} onCategoryChange={setProjectCategory} filteredProjects={filteredProjects} />
+      <ArticlesSection developerData={developerData} darkMode={darkMode} filteredArticles={filteredArticles} />
       <EducationSection developerData={developerData} darkMode={darkMode} />
       <TestimonialsSection developerData={developerData} darkMode={darkMode} />
       <ContactSection

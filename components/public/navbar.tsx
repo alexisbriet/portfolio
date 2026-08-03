@@ -26,6 +26,7 @@ export default function Navbar() {
                         <a href="#experiences" className="hover:text-cyan-400 transition-colors">Expériences</a>
                         <a href="#skills" className="hover:text-cyan-400 transition-colors">Compétences</a>
                         <a href="#projects" className="hover:text-cyan-400 transition-colors">Projets</a>
+                        <a href="#articles" className="hover:text-cyan-400 transition-colors">Articles</a>
                         <a href="#education" className="hover:text-cyan-400 transition-colors">Formations</a>
                         <a href="#contact" className="hover:text-cyan-400 transition-colors">Contact</a>
                     </div>

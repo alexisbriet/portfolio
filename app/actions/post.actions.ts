@@ -1,13 +1,18 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createPostSchema, CreatePostValues } from "@/app/schemas/post.schema";
+import {
+  createPostSchema,
+  updatePostSchema,
+  CreatePostValues,
+  UpdatePostValues,
+} from "@/app/schemas/post.schema";
 import { revalidatePath } from "next/cache";
 
 export async function getPosts() {
   return prisma.post.findMany({
-    orderBy: {
-      id: "asc",
+    include: {
+      author: true,
     },
   });
 }
@@ -17,37 +22,54 @@ export async function getPostById(id: string) {
     where: {
       id: Number(id),
     },
+    include: {
+      author: true,
+    },
   });
 }
 
-export async function createPost(
-  values: CreatePostValues
-) {
+export async function createPost(values: CreatePostValues) {
   const data = createPostSchema.parse(values);
+    console.log(data);
+
 
   const post = await prisma.post.create({
-    data,
+    data: {
+      ...data,
+      tags: data.tags.split(",").map(tag => tag.trim()),
+    },
+    include: {
+      author: true,
+    },
   });
 
   revalidatePath("/admin");
+  revalidatePath("/");
 
   return post;
 }
 
 export async function updatePost(
   id: string,
-  values: CreatePostValues
+  values: UpdatePostValues
 ) {
-  const data = createPostSchema.partial().parse(values);
+  const data = updatePostSchema.parse(values);
 
   const post = await prisma.post.update({
     where: {
       id: Number(id),
     },
-    data,
+    data: {
+      ...data,
+      tags: data.tags.split(",").map(tag => tag.trim()),
+    },
+    include: {
+      author: true,
+    },
   });
 
   revalidatePath("/admin");
+  revalidatePath("/");
 
   return post;
 }
@@ -60,6 +82,7 @@ export async function deletePost(id: string) {
   });
 
   revalidatePath("/admin");
+  revalidatePath("/");
 
   return true;
 }

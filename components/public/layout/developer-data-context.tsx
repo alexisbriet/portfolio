@@ -12,6 +12,7 @@ import { getProjects } from "@/app/actions/project.actions";
 import { getSkillCategories } from "@/app/actions/skill-category.actions";
 import { getTestimonials } from "@/app/actions/testimonial.actions";
 import type { DeveloperData } from "@/components/public/portfolio/types";
+import { getPosts } from "@/app/actions/post.actions";
 
 const emptyDeveloperData: DeveloperData = {
   name: "",
@@ -30,7 +31,8 @@ const emptyDeveloperData: DeveloperData = {
   projects: [],
   education: [],
   certifications: [],
-  testimonials: []
+  testimonials: [],
+  posts: []
 };
 
 const iconMap = {
@@ -58,7 +60,7 @@ export function DeveloperDataProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       try {
-        const [developers, stats, experiences, skillCategories, projects, education, certifications, testimonials] = await Promise.all([
+        const [developers, stats, experiences, skillCategories, projects, education, certifications, testimonials, posts] = await Promise.all([
           getDevelopers(),
           getDeveloperStats(),
           getExperiences(),
@@ -66,7 +68,8 @@ export function DeveloperDataProvider({ children }: { children: ReactNode }) {
           getProjects(),
           getEducations(),
           getCertifications(),
-          getTestimonials()
+          getTestimonials(),
+          getPosts()
         ]);
 
         const developer = developers[0];
@@ -140,7 +143,25 @@ export function DeveloperDataProvider({ children }: { children: ReactNode }) {
               quote: testimonial.quote,
               author: testimonial.author,
               title: testimonial.title
-            }))
+            })),
+          posts: posts.map((post) => ({
+            id: post.id,
+            slug: post.slug,
+            title: post.title,
+            platform: post.platform,
+            date: post.date,
+            readTime: post.readTime,
+            description: post.description,
+            content: post.content,
+            url: post.url,
+            tags: post.tags ?? [],
+
+            published: post.published,
+            createdAt: post.createdAt,
+            updatedAt: post.updatedAt,
+
+            authorId: post.authorId,
+          }))
         };
 
         if (isMounted) {

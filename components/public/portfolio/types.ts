@@ -59,6 +59,25 @@ export type TestimonialItem = {
   title: string;
 };
 
+export type PostItem = {
+  id: number;
+  slug: string;
+  title: string;
+  platform?: string | null;
+  date?: string | null;
+  readTime?: string | null;
+  description?: string | null;
+  content?: string | null;
+  url?: string | null;
+  tags: string[];
+
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+
+  authorId: number;
+};
+
 export type DeveloperData = {
   name: string;
   title: string;
@@ -77,4 +96,5 @@ export type DeveloperData = {
   education: EducationItem[];
   certifications: CertificationItem[];
   testimonials: TestimonialItem[];
+  posts: PostItem[];
 };
