@@ -23,7 +23,7 @@ export default function Home() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const { darkMode } = useTheme();
-  const { developerData } = useDeveloperData();
+  const { developerData, isLoading } = useDeveloperData();
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -56,6 +56,14 @@ export default function Home() {
       }
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-10 h-full">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-black" />
+      </div>
+    );
+  }
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
