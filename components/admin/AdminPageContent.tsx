@@ -41,8 +41,8 @@ export default function AdminPageContent({
 }: {
     initialActiveModel: AdminModel;
     initialDb: Partial<AdminData>;
-    createAction: (values: unknown) => Promise<any>;
-    updateAction: (id: string, values: unknown) => Promise<any>;
+    createAction: (values: any) => Promise<any>;
+    updateAction: (id: string, values: any) => Promise<any>;
     deleteAction: (id: string) => Promise<any>;
 }) {
     const [db, setDb] = useState<AdminData>(() => ({

@@ -11,11 +11,6 @@ export type FieldConfig = {
   relationTo?: string;
 };
 
-export type ModelSchema = {
-  icon: LucideIcon;
-  fields: readonly FieldConfig[];
-};
-
 export const SCHEMA = {
   User: {
     icon: require('lucide-react').Users,

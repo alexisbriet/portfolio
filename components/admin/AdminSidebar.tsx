@@ -1,4 +1,4 @@
-import type { AdminSchema } from './admin-schema';
+import type { AdminModel, AdminSchema } from './admin-schema';
 import { Database } from 'lucide-react';
 
 type AdminSidebarProps = {
@@ -27,14 +27,15 @@ export function AdminSidebar({ schema, db, activeModel, isOpen, onSelectModel, o
         <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3 px-3">Modèles de données</div>
         {Object.entries(schema).map(([modelName, config]) => {
           const Icon = config.icon;
-          const count = db[modelName]?.length || 0;
+          const count = db[modelName as keyof typeof db]?.length || 0;
           const isActive = activeModel === modelName;
+          const model = modelName as AdminModel;
 
           return (
             <button
               key={modelName}
               onClick={() => {
-                onSelectModel(modelName);
+                onSelectModel(model);
                 onClose();
               }}
               className={
