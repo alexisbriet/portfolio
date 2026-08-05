@@ -14,6 +14,8 @@ import { useTheme } from '@/components/public/layout/theme-context';
 import { useDeveloperData } from '@/components/public/layout/developer-data-context';
 import ArticlesSection from '@/components/public/portfolio/ArticlesSection';
 import { sendContactMessage } from '../actions/contact.actions';
+import Lottie from 'lottie-react';
+import loadingAnimation from "../../loading.json"
 
 export default function Home() {
   const [skillFilter, setSkillFilter] = useState('');
@@ -59,8 +61,14 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-10 h-full">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-black" />
+      <div className="flex justify-center items-center py-10 h-full">
+        <div className="w-full h-full">
+          <Lottie
+            animationData={loadingAnimation}
+            loop={true}
+            autoplay={true}
+          />
+        </div>
       </div>
     );
   }

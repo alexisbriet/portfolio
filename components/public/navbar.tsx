@@ -45,7 +45,7 @@ export default function Navbar() {
                         </button>
 
                         <a
-                            href="https://cv.alexisbriet.fr"
+                            href="https://drive.google.com/file/d/1wgfxGdjUm1S6PTuO2X071W9cqmWjAnLc/view?usp=sharing"
                             download
                             className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-700 hover:border-cyan-500 transition-all hover:text-cyan-400"
                         >
