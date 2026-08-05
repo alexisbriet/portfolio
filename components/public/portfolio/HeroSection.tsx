@@ -14,7 +14,7 @@ type HeroSectionProps = {
 export function HeroSection({ developerData, darkMode, copiedField, onCopy }: HeroSectionProps) {
 
   function downloadCV() {
-    window.open("https://cv.alexisbriet.fr", "_blank", "noopener,noreferrer");
+    window.open("https://drive.google.com/file/d/1wgfxGdjUm1S6PTuO2X071W9cqmWjAnLc/view?usp=sharing", "_blank", "noopener,noreferrer");
   }
 
   return (
