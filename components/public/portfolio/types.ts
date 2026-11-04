@@ -1,5 +1,3 @@
-import type { LucideIcon } from 'lucide-react';
-
 export type StatItem = {
   label: string;
   value: string;
@@ -28,16 +26,24 @@ export type SkillCategory = {
   skills: SkillItem[];
 };
 
+export type SkillIconName = 'Layers' | 'Terminal' | 'Database' | 'Cpu';
+
 export type ProjectItem = {
   id: string;
+  slug: string | null;
   title: string;
   category: string;
   image: string;
   description: string;
+  content?: string | null;
+  longDescription?: string; // Description complète de la page détail
+  gallery?: string[]; // Images additionnelles
   techs: string[];
-  github: string;
-  demo: string;
+  github?: string;
+  demo?: string;
   featured: boolean;
+  challenges?: string[]; // Défis et solutions
+  keyFeatures?: string[]; // Fonctionnalités clés
 };
 
 export type EducationItem = {
@@ -98,3 +104,8 @@ export type DeveloperData = {
   testimonials: TestimonialItem[];
   posts: PostItem[];
 };
+
+export type SerializableDeveloperData = Omit<DeveloperData, 'skillCategories'> & {
+  skillCategories: Array<Omit<SkillCategory, 'icon'> & { icon: SkillIconName }>;
+};
+import type { LucideIcon } from 'lucide-react';

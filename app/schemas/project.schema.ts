@@ -8,25 +8,33 @@ export const createProjectSchema = z.object({
         .string()
         .min(3),
 
+    slug: z
+        .string()
+        .min(2),
+
     category: z
         .string()
         .min(2),
 
     image: z
         .url()
-        .optional(),
+        .nullish(),
 
     description: z
         .string()
         .min(10),
 
+    content: z
+        .string()
+        .nullish(),
+
     github: z
         .url()
-        .optional(),
+        .nullish(),
 
     demo: z
         .url()
-        .optional(),
+        .nullish(),
 
     featured: z
         .boolean()
@@ -46,9 +54,11 @@ export type CreateProjectValues =
 export const createProjectDefaultValues:
     CreateProjectValues = {
     title: "",
+    slug: "",
     category: "",
     image: "",
     description: "",
+    content: "",
     github: "",
     demo: "",
     featured: false,
@@ -64,6 +74,13 @@ export const createProjectFormFields:
             name: "title",
             label: "Titre",
             placeholder: "Mon projet SaaS",
+            required: true,
+        },
+
+         {
+            name: "slug",
+            label: "Slug",
+            placeholder: "Slug",
             required: true,
         },
 
@@ -85,6 +102,12 @@ export const createProjectFormFields:
             label: "Description",
             placeholder: "Description du projet",
             required: true,
+        },
+
+        {
+            name: "content",
+            label: "Article du projet",
+            placeholder: "Racontez le projet en plusieurs paragraphes. Séparez les paragraphes par une ligne vide.",
         },
 
         {

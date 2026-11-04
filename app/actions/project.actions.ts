@@ -35,6 +35,19 @@ export async function getProjectById(
 
 }
 
+export async function getProjectBySlug(
+    slug: string
+) {
+
+    return prisma.project.findUnique({
+        where: {
+            slug
+        },
+        include: {
+            technologies: true
+        }
+    })
+}
 
 
 export async function createProject(
@@ -69,13 +82,19 @@ export async function updateProject(
             .parse(values);
 
 
-    return prisma.project.update({
+    const project = await prisma.project.update({
         where: {
             id
         },
         data
     });
 
+    revalidatePath("/");
+    if (project.slug) {
+        revalidatePath(`/project/${project.slug}`);
+    }
+
+    return project;
 }
 
 

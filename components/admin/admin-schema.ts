@@ -107,9 +107,11 @@ export const SCHEMA = {
     fields: [
       { name: 'id', type: 'String', isId: true },
       { name: 'title', type: 'String' },
+      { name: 'slug', type: 'String' },
       { name: 'category', type: 'String' },
       { name: 'image', type: 'String', optional: true },
       { name: 'description', type: 'Text' },
+      { name: 'content', type: 'Text', optional: true },
       { name: 'github', type: 'String', optional: true },
       { name: 'demo', type: 'String', optional: true },
       { name: 'featured', type: 'Boolean', default: false },

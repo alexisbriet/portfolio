@@ -55,14 +55,14 @@ export function FormModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50/50">
-          <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-            {mode === 'create' ? <Plus size={20} className="text-blue-600" /> : <Edit2 size={20} className="text-blue-600" />}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm">
+      <div className="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20 animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between border-b border-slate-100 bg-gradient-to-r from-cyan-50/70 to-white p-5 sm:p-6">
+          <h2 className="flex items-center gap-2 text-lg font-bold text-slate-800 sm:text-xl">
+            {mode === 'create' ? <Plus size={20} className="text-cyan-600" /> : <Edit2 size={20} className="text-cyan-600" />}
             {mode === 'create' ? 'Ajouter' : 'Modifier'} un enregistrement {activeModel}
           </h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
+          <button type="button" aria-label="Fermer" onClick={onClose} className="rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700">
             <X size={24} />
           </button>
         </div>
@@ -97,7 +97,7 @@ export function FormModal({
                     required={!field.optional}
                     value={formData[field.name] ?? ''}
                     onChange={(e) => handleChange(e, field)}
-                    className="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                    className="w-full rounded-xl border border-slate-300 bg-white p-2.5 outline-none transition-all focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10"
                   >
                     <option value="">Sélectionner {field.relationTo}...</option>
                     {(db[field.relationTo] || []).map((rel) => (
@@ -107,12 +107,12 @@ export function FormModal({
                     ))}
                   </select>
                 ) : field.type === 'Boolean' ? (
-                  <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 transition-colors">
+                  <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3 transition-colors hover:bg-cyan-50/40">
                     <input
                       type="checkbox"
                       checked={formData[field.name] ?? false}
                       onChange={(e) => handleChange(e, field)}
-                      className="w-5 h-5 rounded text-blue-600 focus:ring-blue-500 border-slate-300"
+                      className="h-5 w-5 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
                     />
                     <span className="text-slate-700 font-medium">Activer {field.name}</span>
                   </label>
@@ -121,9 +121,9 @@ export function FormModal({
                     required={!field.optional}
                     value={formData[field.name] ?? ''}
                     onChange={(e) => handleChange(e, field)}
-                    rows={4}
+                    rows={field.name === 'content' ? 16 : 4}
                     placeholder={fieldConfig.placeholder}
-                    className="w-full p-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all resize-y"
+                    className="w-full resize-y rounded-xl border border-slate-300 bg-white p-3 outline-none transition-all focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10"
                   />
                 ) : (
                   <input
@@ -132,7 +132,7 @@ export function FormModal({
                     value={formData[field.name] ?? ''}
                     onChange={(e) => handleChange(e, field)}
                     placeholder={fieldConfig.placeholder}
-                    className="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                    className="w-full rounded-xl border border-slate-300 bg-white p-2.5 outline-none transition-all focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10"
                   />
                 )}
               </div>
@@ -140,11 +140,11 @@ export function FormModal({
           })}
         </form>
 
-        <div className="p-6 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
-          <button type="button" onClick={onClose} className="px-5 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
+        <div className="flex justify-end gap-3 border-t border-slate-100 bg-slate-50/70 p-5 sm:p-6">
+          <button type="button" onClick={onClose} className="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50">
             Annuler
           </button>
-          <button type="submit" form="form-modal" className="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors">
+          <button type="submit" form="form-modal" className="rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
             Enregistrer
           </button>
         </div>

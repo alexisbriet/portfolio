@@ -135,9 +135,14 @@ export default function AdminPageContent({
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex text-slate-900 font-sans">
+        <div className="flex min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-cyan-50/60 via-slate-50 to-slate-100 font-sans text-slate-900">
             {isMobileMenuOpen && (
-                <div className="fixed inset-0 bg-slate-900/50 z-30 lg:hidden" onClick={() => setIsMobileMenuOpen(false)} />
+                <button
+                    type="button"
+                    aria-label="Fermer le menu d’administration"
+                    className="fixed inset-0 z-30 cursor-default bg-slate-950/45 backdrop-blur-[2px] lg:hidden"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
             )}
 
             <AdminSidebar
@@ -149,7 +154,7 @@ export default function AdminPageContent({
                 onClose={() => setIsMobileMenuOpen(false)}
             />
 
-            <main className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+            <main className="flex h-screen min-w-0 flex-1 flex-col overflow-hidden">
                 <AdminHeader
                     activeModel={activeModel}
                     searchTerm={searchTerm}

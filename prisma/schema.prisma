@@ -134,9 +134,11 @@ model Project {
   id String @id @default(cuid())
 
   title       String
+  slug        String?   @unique @default(cuid())
   category    String
   image       String?
   description String  @db.Text
+  content     String? @db.Text
 
   github String?
   demo   String?

@@ -1,16 +1,24 @@
-import { ExternalLink, Sparkles } from 'lucide-react';
-
-import type { DeveloperData } from './types';
+import { ExternalLink, Sparkles, ArrowRight, Code2 } from 'lucide-react';
+import Link from 'next/link';
+import type { DeveloperData, ProjectItem } from './types';
 
 type ProjectsSectionProps = {
   developerData: DeveloperData;
   darkMode: boolean;
   projectCategory: string;
   onCategoryChange: (value: string) => void;
-  filteredProjects: typeof developerData.projects;
+  filteredProjects: ProjectItem[];
+  // Callback optionnel si vous n'utilisez pas de router React/Next
+  onSelectProjectSlug?: (slug: string) => void;
 };
 
-export function ProjectsSection({ developerData, darkMode, projectCategory, onCategoryChange, filteredProjects }: ProjectsSectionProps) {
+export function ProjectsSection({
+  darkMode,
+  projectCategory,
+  onCategoryChange,
+  filteredProjects,
+  onSelectProjectSlug,
+}: ProjectsSectionProps) {
   return (
     <section id="projects" className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -20,16 +28,23 @@ export function ProjectsSection({ developerData, darkMode, projectCategory, onCa
           </div>
           <div>
             <h2 className="text-2xl font-bold">Projets Réalisés</h2>
-            <p className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Une sélection de mes travaux personnels et professionnels</p>
+            <p className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+              Une sélection de mes travaux personnels et professionnels
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 p-1 rounded-xl bg-slate-900/60 border border-slate-800 self-start sm:self-auto">
+        <div className={`flex items-center gap-2 p-1 rounded-xl border self-start sm:self-auto ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           {['Tous', 'Web App', 'SaaS', 'DevOps'].map((cat) => (
             <button
               key={cat}
               onClick={() => onCategoryChange(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${projectCategory === cat ? 'bg-linear-to-r from-cyan-500 to-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+              aria-pressed={projectCategory === cat}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                projectCategory === cat
+                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md'
+                  : darkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-cyan-700'
+              }`}
             >
               {cat}
             </button>
@@ -41,12 +56,28 @@ export function ProjectsSection({ developerData, darkMode, projectCategory, onCa
         {filteredProjects.map((project) => (
           <div
             key={project.id}
-            className={`group rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-cyan-500/50' : 'bg-white border-slate-200 shadow-sm'}`}
+            className={`group rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+              darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-cyan-500/50' : 'bg-white border-slate-200 shadow-sm'
+            }`}
           >
             <div className="relative h-48 overflow-hidden">
-              <img src={project.image ? project.image : 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80'} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-              <span className="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-900/80 text-cyan-300 border border-cyan-500/30">
+              {project.image ? (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  width={800}
+                  height={450}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              ) : (
+                <div aria-hidden="true" className="flex h-full items-center justify-center bg-gradient-to-br from-slate-900 via-blue-950 to-cyan-950 text-cyan-300">
+                  <Code2 className="h-12 w-12 opacity-70" strokeWidth={1.3} />
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+              <span className="absolute right-3 top-3 rounded-full border border-cyan-500/30 bg-slate-900/90 px-2.5 py-1 text-xs font-semibold text-cyan-200">
                 {project.category}
               </span>
             </div>
@@ -57,29 +88,72 @@ export function ProjectsSection({ developerData, darkMode, projectCategory, onCa
 
               <div className="flex flex-wrap gap-1.5">
                 {project.techs.map((tech, index) => (
-                  <span key={`${tech}-${index}`} className="text-xs px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 border border-slate-700/60 font-mono">
+                  <span
+                    key={`${tech}-${index}`}
+                    className={`text-xs px-2 py-0.5 rounded border font-mono ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700/60' : 'bg-slate-100 text-slate-700 border-slate-200'}`}
+                  >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <div className="pt-2 flex items-center gap-4">
-                {
-                  project.github &&
-                  (
-                    <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-cyan-400 transition-colors">
-                      Code Source
+              {/* Pied de carte : Liens propres & uniformisés */}
+              <div className={`pt-4 flex items-center justify-between border-t ${darkMode ? 'border-slate-800/40' : 'border-slate-100'}`}>
+                {/* Liens externes (Code & Démo) */}
+                <div className="flex items-center gap-4">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`inline-flex items-center gap-1.5 text-xs font-medium transition-colors ${
+                        darkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      <Code2 className="w-3.5 h-3.5" />
+                      Code
                     </a>
-                  )
-                }
-                {project.demo &&
-                  (
-                    <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:underline">
-                      <ExternalLink className="w-4 h-4" />
-                      Démo Live
+                  )}
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      Démo
                     </a>
+                  )}
+                </div>
+
+                {/* Lien ou Bouton vers la page détaillée du projet */}
+                {project.slug && (
+                  onSelectProjectSlug ? (
+                    <button
+                      onClick={() => onSelectProjectSlug(project.slug)}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        darkMode 
+                          ? 'bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/20' 
+                          : 'bg-cyan-50 text-cyan-700 hover:bg-cyan-100 border border-cyan-200'
+                      }`}
+                    >
+                      Détails <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  ) : (
+                    <Link
+                      href={`/project/${project.slug}`}
+                      prefetch={false}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        darkMode 
+                          ? 'bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/20' 
+                          : 'bg-cyan-50 text-cyan-700 hover:bg-cyan-100 border border-cyan-200'
+                      }`}
+                    >
+                      Détails <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   )
-                }
+                )}
               </div>
             </div>
           </div>

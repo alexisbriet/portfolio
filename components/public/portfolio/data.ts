@@ -118,6 +118,7 @@ export const DEVELOPER_DATA: DeveloperData = {
   projects: [
     {
       id: 1,
+      slug: 'test-1',
       title: 'DevFlow - Plateforme de Collaboration Code',
       category: 'Web App',
       image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
@@ -129,6 +130,7 @@ export const DEVELOPER_DATA: DeveloperData = {
     },
     {
       id: 2,
+      slug: 'test-2',
       title: 'TaskMaster - System de Gestion Agile',
       category: 'SaaS',
       image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80',
@@ -140,6 +142,7 @@ export const DEVELOPER_DATA: DeveloperData = {
     },
     {
       id: 3,
+      slug: 'test-3',
       title: 'CloudMonitor - Dashboard DevOps',
       category: 'DevOps',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
@@ -151,6 +154,7 @@ export const DEVELOPER_DATA: DeveloperData = {
     },
     {
       id: 4,
+      slug: 'test-4',
       title: 'EcoShop - E-Commerce Headless',
       category: 'Web App',
       image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80',

@@ -3,13 +3,19 @@
 import Navbar from "../navbar";
 import Footer from "../footer";
 import { ThemeProvider, useTheme } from "./theme-context";
-import { DeveloperDataProvider } from "./developer-data-context";
+
+type PublicDeveloper = {
+    name: string;
+    github: string;
+    linkedin: string;
+};
 
 type Props = {
     children: React.ReactNode;
+    developer: PublicDeveloper | null;
 };
 
-function LayoutShell({ children }: Props) {
+function LayoutShell({ children, developer }: Props) {
     const { darkMode } = useTheme();
 
     return (
@@ -18,17 +24,18 @@ function LayoutShell({ children }: Props) {
             {children}
             <Footer
                 darkMode={darkMode}
+                developerName={developer?.name ?? ""}
+                github={developer?.github ?? ""}
+                linkedin={developer?.linkedin ?? ""}
             />
         </div>
     );
 }
 
-export default function LayoutProvider({ children }: Props) {
+export default function LayoutProvider({ children, developer }: Props) {
     return (
         <ThemeProvider>
-            <DeveloperDataProvider>
-                <LayoutShell>{children}</LayoutShell>
-            </DeveloperDataProvider>
+            <LayoutShell developer={developer}>{children}</LayoutShell>
         </ThemeProvider>
     );
 }
