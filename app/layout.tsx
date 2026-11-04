@@ -17,6 +17,9 @@ export const metadata: Metadata = {
         default: "Alexis Briet | Développeur Full Stack & DevOps",
         template: "%s | Alexis Briet",
     },
+    icons: {
+        icon: '/alexisbriet-logo.png', // Votre PNG haute résolution
+    },
     description:
         "Portfolio d'Alexis Briet, développeur Full Stack & DevOps et création d'applications web modernes. Découvrez mes projets, compétences et expériences.",
 };
