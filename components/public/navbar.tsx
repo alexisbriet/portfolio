@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/public/layout/theme-context";
+import Image from "next/image";
 
 const navigationLinks = [
     ["À propos", "#about"],
@@ -27,8 +28,13 @@ export default function Navbar() {
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <Link href="/" className="flex items-center gap-3" aria-label="Alexis Briet, accueil">
-                        <div className="p-2 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-lg text-white shadow-md shadow-blue-500/20">
-                            <Code2 className="w-5 h-5" />
+                        <div className="p-2 bg-gradient-to-tr rounded-lg text-white">
+                            <Image
+                                src="/alexisbriet-logo.png"
+                                alt="Logo alexis briet"
+                                width={50}
+                                height={50}
+                            />
                         </div>
                         <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
                             Alexis BRIET
@@ -56,8 +62,10 @@ export default function Navbar() {
                         </button>
 
                         <a
-                            href="https://cv.alexisbriet.fr"
+                            href="https://drive.google.com/file/d/17WypXo6CeQdP8DPaKK0Q_dVu_y2oxh1e/view"
                             download
+                            target="_blank"
+                            rel="noreferrer"
                             className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-700 hover:border-cyan-500 transition-all hover:text-cyan-400"
                         >
                             <Download className="w-3.5 h-3.5" />

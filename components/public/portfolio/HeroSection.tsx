@@ -2,6 +2,7 @@ import { CheckCircle2, Copy, Download, Mail, MapPin, UserRound } from 'lucide-re
 
 import type { DeveloperData } from './types';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import Image from 'next/image';
 
 type HeroSectionProps = {
   developerData: DeveloperData;
@@ -58,7 +59,7 @@ export function HeroSection({ developerData, darkMode, copiedField, onCopy }: He
               </a>
 
               <a
-                href="https://cv.alexisbriet.fr"
+                href="https://drive.google.com/file/d/17WypXo6CeQdP8DPaKK0Q_dVu_y2oxh1e/view"
                 target="_blank"
                 rel="noreferrer"
                 className={`px-5 py-3 rounded-xl border text-sm font-semibold transition-all flex items-center gap-2 ${darkMode ? 'border-slate-700 bg-slate-800/60 hover:bg-slate-800 hover:border-slate-600 text-slate-200' : 'border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800'}`}
@@ -81,9 +82,13 @@ export function HeroSection({ developerData, darkMode, copiedField, onCopy }: He
           <div className="relative">
             <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden border-4 border-cyan-500/30 shadow-2xl relative group">
               <div aria-label="Alexis Briet" className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-700 text-white transition-transform duration-500 group-hover:scale-105">
-                <UserRound className="h-16 w-16 opacity-80" strokeWidth={1.2} />
-                <span className="text-2xl font-bold tracking-widest">AB</span>
-              </div>
+                <Image
+                  src="/alexisbriet-logo.png"
+                  alt="Logo alexis briet"
+                  width={1000}
+                  height={1000}
+                />             
+                </div>
               <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-3 left-3 right-3 text-center">
                 <span className="text-xs font-mono bg-slate-900/90 text-cyan-400 px-3 py-1 rounded-full border border-cyan-500/30">
